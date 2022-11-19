@@ -24,6 +24,9 @@
 .f-wrap {
   flex-wrap: wrap;
 }
+.s-evenly{
+  justify-content: space-evenly;
+}
 
 .grow1 {
   flex: 1;
@@ -45,9 +48,14 @@
   padding: 50px;
 }
 
+.m10{
+  margin: 10px
+}
+
 .p5 {
   padding: 5px;
 }
+
 
 .pt50 {
   padding-top: 50px;
@@ -61,9 +69,7 @@ a {
   margin: 10px;
 }
 
-img {
-  height: 200px;
-}
+
 .container{
   width: 500px;
   height: 100px;
@@ -76,18 +82,19 @@ img {
 button{
   margin: 5px
 }
-.chatbox{
+
+/* .chatbox{
   width: 500px;
   height: 300px;
   border: 1px black solid;
   overflow: scroll;
-}
-.userbox{
-  width: 500px;
-  height: 50px;
+} */
+/* .userbox{
+  width: 250px;
+ margin: 20px;
   border: 1px black solid;
 
-}
+} */
 .selected {
 
   background-color: lightcyan
@@ -100,9 +107,51 @@ button{
 }
 
 
-h6{
+h5{
 
-  margin-block-start: 5px;
-    margin-block-end: 5px;
+  margin-block-start: 3px;
+    margin-block-end: 3px;
     margin-left: 10px;
+}
+.auction-card{
+  
+
+  width: 250px;
+  height: 400px;
+  border: solid 1px black;
+  margin: 10px;
+}
+
+.image-container {
+  width: 90%;
+  height: 250px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 10px;
+}
+
+.invalid {
+  background-color: rgb(255, 225, 215);
+}
+.auction-container{
+  position: absolute;
+  height: 300vh;
+  width: 100vw;
+  left: 0px;
+  top: -300px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(2, 79, 34, 0.5);
+}
+.auction {
+  border: 1px solid black;
+  width: 800px;
+  height: 700px;
+  background-color: white;
+ 
+}
+.closeBtn {
+  font-size: 20px;
+  margin: 15px;
+  
 }

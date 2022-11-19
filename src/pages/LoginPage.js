@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from '../components/Login';
+import Nav from '../components/Navigate';
 // import ChooseColor from "../components/ChooseColor";
 // import Create from '../components/Create';
 // import Logout from '../components/Logout';
@@ -9,7 +10,7 @@ import Login from '../components/Login';
 const LoginPage = () => {
   return (
     <div className="p50">
-
+      <Nav />
       <Login />
     </div>
   );

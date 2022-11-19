@@ -3,37 +3,46 @@ import io from "socket.io-client"
 import { useEffect, useRef, useState } from "react";
 import MainContext from "./context/MainContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ChatPage from './pages/ChatPage';
-import RoomsPage from './pages/RoomsPage';
+// import ChatPage from './pages/ChatPage';
+// import RoomsPage from './pages/RoomsPage';
 import LoginPage from './pages/LoginPage';
+import UploadPage from './pages/UploadPage';
+import ListPage from './pages/ListPage';
+import AuctionPage from './pages/AuctionPage';
+import WelcomePage from './pages/WecomePage';
+import Nav from './components/Navigate';
 
 const socket = io.connect('http://localhost:4001');
 
 
 function App() {
     const [username, setUsername] = useState('')
+    const [sessionUser, setSessionUser] = useState('')
+    const [image, setImage] = useState('')
+    const [title, setTitle] = useState('')
+    const [time, setTime] = useState(null)
+    const [price, setPrice] = useState(null)
+    const [auctions, setAuctions] = useState([])
+    const [showAuction, setShowAuction] = useState(false)
+    const [id, setId] = useState('')
+    const [singleAuction, setSingleAuction] = useState({})
 
-    const [counter, setCounter] = useState(0)
-    const [selectedRoom, setSelectedRoom] = useState('')
-    const [log, setLog] = useState([])
-    const [entered, setEntered] = useState('')
 
 
 
     const states = {
-        counter, setCounter,
-        username, setUsername,
-        selectedRoom, setSelectedRoom,
-        log, setLog,
-        entered, setEntered
+        sessionUser, setSessionUser,
+        image, setImage,
+        title, setTitle,
+        time, setTime,
+        price, setPrice,
+        auctions, setAuctions,
+        showAuction, setShowAuction,
+        id, setId,
+        singleAuction, setSingleAuction
     }
 
-    // const testTheRoom = () => {
 
-    //     socket.emit('roomTest', 'testString')
-
-
-    // }
 
     useEffect(() => {
 
@@ -43,10 +52,6 @@ function App() {
         socket.on("event", (data) => {
             console.log(data)
         })
-        // socket.on("roomTestServerReply", (data) => {
-        //     console.log(data)
-        // })
-
 
 
     }, [])
@@ -99,19 +104,7 @@ function App() {
 
     return (
         <div className="p50">
-            {/* <div className='container d-flex j-center a-center' style={{ backgroundColor: background }}>
 
-
-                <button onClick={send}>Send msg</button>
-                <input type="color" ref={selectColor} />
-                <button onClick={sendColor}>Send color</button>
-
-            </div>
-            <div className=' box d-flex j-center a-center' > {counter} </div>
-            <button onClick={countMeDbl}> Count myself double</button>
-            <button onClick={countMe}> Count myself</button>
-            <button onClick={countOthers}> Count others but me</button>
-            <button onClick={countAll}>Count all</button> */}
 
             <MainContext.Provider value={states}>
 
@@ -120,9 +113,10 @@ function App() {
 
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
-                        <Route path="/chat" element={<ChatPage />} />
-                        <Route path="/rooms" element={<RoomsPage />} />
-
+                        <Route path="/welcome" element={<WelcomePage />} />
+                        <Route path="/upload" element={<UploadPage />} />
+                        <Route path="/list" element={<ListPage />} />
+                        <Route path="/auction" element={<AuctionPage />} />
 
                     </Routes>
 
