@@ -10,7 +10,7 @@ import Nav from '../components/Navigate';
 const LoginPage = () => {
   return (
     <div className="p50">
-      <Nav />
+      {/* <Nav /> */}
       <Login />
     </div>
   );

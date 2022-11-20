@@ -15,14 +15,19 @@ const Nav = () => {
   }
 
   return (
-    <div className='navline' >
+    <div className='navline d-flex a-center' >
+      <div className='grow1'>
 
-      <button onClick={() => nav('/list')}>Auctions list</button>
-      <button onClick={() => nav('/upload')} >Upload new auction </button>
-      <button onClick={() => nav('/')}>Login </button>
-      <button onClick={() => nav('/auction')}>to singleAuction </button>
-      <button>{sessionUser}</button>
-      <button onClick={logout}>Logout </button>
+        <button onClick={() => nav('/list')}>Open Auctions list</button>
+        <button onClick={() => nav('/upload')} >Upload new auction </button>
+        {/* <button onClick={() => nav('/')}>Login </button> */}
+      </div>
+      {/* <button onClick={() => nav('/auction')}>to singleAuction </button> */}
+      <div className='d-flex f-wrap a-center' >
+
+        <h4>{sessionUser}</h4>
+        <button onClick={logout}>Logout </button>
+      </div>
     </div >
   );
 };

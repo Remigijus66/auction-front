@@ -26,7 +26,7 @@ function App() {
     const [showAuction, setShowAuction] = useState(false)
     const [id, setId] = useState('')
     const [singleAuction, setSingleAuction] = useState({})
-
+    const [tick, setTick] = useState(false)
 
 
 
@@ -45,68 +45,20 @@ function App() {
 
 
     useEffect(() => {
+        setTimeout(() => {
+            socket.emit('tick', 'tick')
+            tick ? setTick(false) : setTick(true)
+            clearTimeout();
+        }, 1000)
+    }, [tick])
 
-        socket.on("newUser", (data) => {
-            console.log(data)
-        })
-        socket.on("event", (data) => {
-            console.log(data)
-        })
-
-
-    }, [])
-
-
-
-    // useEffect(() => {
-    //     socket.on('color', (data) => {
-    //         setBackground(data)
-    //     })
-    // })
-
-    // useEffect(() => {
-    //     // console.log(counter)
-    //     socket.on('countOthers', (data) =>
-    //         setCounter(counter + data))
-    // })
-
-    // useEffect(() => {
-    //     // console.log(counter)
-    //     socket.on('countMe', (data) =>
-    //         setCounter(counter + data))
-    // })
-
-    // useEffect(() => {
-    //     // console.log(counter)
-    //     socket.on('countAll', (data) =>
-    //         setCounter(counter + data))
-    // })
-
-
-    // const send = () => {
-    //     socket.emit("something", "labas cia mano zinute")
-    // }
-    // const sendColor = () => {
-    //     socket.emit('color', selectColor.current.value)
-    // }
-    // const countMeDbl = () => {
-    //     socket.emit('countMe', 2)
-    // }
-    // const countMe = () => {
-    //     socket.emit('countMe', 1)
-    // }
-    // const countOthers = () => {
-    //     socket.emit('countOthers', 1)
-    // }
-    // const countAll = () => {
-    //     socket.emit('countAll', 1)
-    // }
 
     return (
-        <div className="p50">
+        <div >
 
 
             <MainContext.Provider value={states}>
+
 
 
                 <BrowserRouter>
@@ -116,7 +68,7 @@ function App() {
                         <Route path="/welcome" element={<WelcomePage />} />
                         <Route path="/upload" element={<UploadPage />} />
                         <Route path="/list" element={<ListPage />} />
-                        <Route path="/auction" element={<AuctionPage />} />
+                        {/* <Route path="/auction" element={<AuctionPage />} /> */}
 
                     </Routes>
 

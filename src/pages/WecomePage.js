@@ -8,7 +8,7 @@ const WelcomePage = () => {
   return (
     <div className="p50">
       <Nav />
-      <h2>Wellcome to all funny things auction Page</h2>
+      <h2>Wellcome to All Funny Things Auction </h2>
     </div>
   );
 };

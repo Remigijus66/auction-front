@@ -57,21 +57,26 @@ const Login = () => {
     if (res.error === true) setErrorMessage(res.message)
     if (res.data === "badPass" || res.data === 'badName')
       setVerifyResult(res.data);
+    if (res.error === false) {
+      setSessionUser(res.data)
+      registerNameRef.current.value = ''
+      registerPassOneRef.current.value = ''
+      registerPassTwoRef.current.value = ''
+      nav('/welcome')
+    }
 
   }
 
-  const checksesssion = async () => {
-    const data = { name: 'any' }
-    const res = await post('checksesssion', data)
-    console.log(res)
-  }
+
 
   return (
-    <div  >
+    <div className='d-flex f-column a-center' >
+      <h2>  All Funny Things Auction</h2>
+      <h3>Login or register</h3>
 
 
-      <button onClick={checksesssion}>checksesssion</button>
       <div className='userbox'>
+
         <input type={'text'} ref={loginNameRef} placeholder={'Enter username'} />
         <input type={"password"} ref={loginPassRef} placeholder={'Enter password'} />
         <button onClick={loginUser}>Login </button></div>

@@ -2,26 +2,52 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
-import { post, timeDistance } from '../plugins/http';
+import { checksesssion, post, timeDistance } from '../plugins/http';
 // import MainContext from "../context/MainContext";
 // import { useNavigate } from "react-router-dom";
 // import { get, post, timeDistance } from "../plugins/http";
+import { useNavigate } from 'react-router-dom';
+import io from "socket.io-client"
 
+const socket = io.connect('http://localhost:4001');
 
 const Auction = () => {
-  const { setShowAuction, id, singleAuction, setSingleAuction } = useContext(MainContext)
+  const { setShowAuction, id, singleAuction, setSingleAuction, sessionUser } = useContext(MainContext)
+  const nav = useNavigate()
+  const bidRef = useRef()
 
   useEffect(() => {
-    downloadSingle()
+    // downloadSingle()
+
+    socket.emit("singleAuction", id)
+
+    socket.on("singleAuction", (data) => {
+      // console.log(data)
+      setSingleAuction(data)
+      // console.log(singleAuction)
+    })
+    socket.on('bid', (data) => {
+      setSingleAuction(data)
+    })
 
   }, [])
 
-  const downloadSingle = async () => {
-    const data = { id: id }
-    const res = await post('downloadSingle', data)
-    console.log(res)
-    setSingleAuction(res.data)
+
+
+  const submit = () => {
+    console.log(bidRef.current.value)
+    console.log(sessionUser)
+    const newPrice = bidRef.current.value
+    const bidderName = sessionUser
+    socket.emit("bid", id, newPrice, bidderName)
+    bidRef.current.value = ''
+  }
+
+  const close = () => {
+    setSingleAuction({});
+    setShowAuction(false)
     console.log(singleAuction)
+    socket.emit("leave", id)
 
   }
 
@@ -31,20 +57,32 @@ const Auction = () => {
       <div className='auction '>
         <div className="closeBtn d-flex space-btw">
           <div></div>
-          <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px' }} onClick={() => setShowAuction(false)}>X</div>
+          <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px' }} onClick={close}>X</div>
         </div>
         <div className='d-flex s-evenly'>
-          <div className='auction-card d-flex f-wrap f-column a-center'>
+          {singleAuction.title && <div className='auction-card d-flex f-wrap f-column a-center'>
             <div className='image-container' style={{ backgroundImage: `url("${singleAuction.image}")` }}></div>
             <h5> {singleAuction.title} </h5>
             <h5>Provider: {singleAuction.name}</h5>
+            <h5>Start price € {singleAuction.startPrice
+            }</h5>
             <h5>Time left: {timeDistance(singleAuction.time, Date.parse(new Date))}</h5>
-            <h5>Current price € {singleAuction.bids[singleAuction.bids.length - 1].price}</h5>
+            {singleAuction.bids.length > 0 && <h5>Last price € {singleAuction.bids[singleAuction.bids.length - 1].price}</h5>}
             <h5>Bids placed {singleAuction.bids.length}</h5>
+          </div>}
+          <div className='auction-card d-flex f-wrap f-column'>
+
+            {singleAuction.title && <div className='grow1 o-auto'>
+              <strong>€ {singleAuction.startPrice} --- Start Price --- </strong>
+              {singleAuction.bids.map((x, i) => <p key={i}> <strong> € {x.price} </strong>  -placed by- <strong>{x.name}</strong> </p>)}
+            </div>}
+            <div>
+              <input type={'number'} ref={bidRef} placeholder={'Enter price'} />
+              <button onClick={submit}>Submit</button>
+            </div>
           </div>
-          <div className='auction-card'></div>
         </div>
-        <button onClick={downloadSingle} >Get {id}</button>
+
 
       </div>
 

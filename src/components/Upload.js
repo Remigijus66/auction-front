@@ -16,15 +16,6 @@ const Upload = () => {
     time, setTime,
     price, setPrice, } = useContext(MainContext)
 
-  useEffect(() => {
-
-    setTimeout(() => {
-      const timeCopy = time
-      setTime(timeCopy)
-      tick ? setTick(false) : setTick(true)
-      clearTimeout();
-    }, 1000)
-  }, [tick]);
 
   const auctionImageRef = useRef()
   const auctionTitleRef = useRef()

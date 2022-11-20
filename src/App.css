@@ -44,8 +44,13 @@
   flex: 4;
 }
 
+.o-auto {
+  overflow: auto;
+}
+
 .p50 {
   padding: 50px;
+   
 }
 
 .m10{
@@ -89,12 +94,12 @@ button{
   border: 1px black solid;
   overflow: scroll;
 } */
-/* .userbox{
+.userbox{
   width: 250px;
- margin: 20px;
+  margin: 20px;
   border: 1px black solid;
 
-} */
+}
 .selected {
 
   background-color: lightcyan
@@ -109,9 +114,9 @@ button{
 
 h5{
 
-  margin-block-start: 3px;
-    margin-block-end: 3px;
-    margin-left: 10px;
+  margin-block-start: 1px;
+    margin-block-end: 1px;
+ 
 }
 .auction-card{
   

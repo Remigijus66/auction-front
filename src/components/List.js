@@ -2,19 +2,32 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
 import { useNavigate } from "react-router-dom";
-import { get, post, timeDistance } from "../plugins/http";
+import { checksesssion, get, post, timeDistance } from "../plugins/http";
+import io from "socket.io-client"
+import AuctionCard from './AuctionCard';
+
+const socket = io.connect('http://localhost:4001');
 
 
 const List = () => {
   const nav = useNavigate()
-  const [tick, setTick] = useState(false)
+
 
   const { auctions, setAuctions, setShowAuction, setId } = useContext(MainContext)
 
   useEffect(() => {
     downloadActualAuctions()
 
+
+    socket.on('updateList', (data) => {
+      console.log(data)
+      setAuctions(data)
+    })
+
+
   }, [])
+
+
 
   // useEffect(() => {
 
@@ -37,11 +50,16 @@ const List = () => {
 
 
 
-  const show = (id) => {
-    setShowAuction(true)
-    setId(id)
-    console.log(id)
-  }
+  //  const show = async (id) => {
+
+  //     const logged = await checksesssion()
+  //     if (logged) {
+  //       setShowAuction(true)
+  //       setId(id)
+  //       console.log(id)
+  //     }
+
+  //   }
 
 
 
@@ -52,20 +70,20 @@ const List = () => {
       <h2>Auctions list</h2>
       {/* <button onClick={downloadActualAuctions}>auctions</button> */}
       <div className='d-flex f-wrap '>
-        {auctions.map((x, i) => <div key={i} >
-          <div className='auction-card d-flex f-wrap f-column a-center ' style={{ cursor: 'pointer' }} onClick={() => {
+        {auctions.map((x, i) => <div key={i} > <AuctionCard auction={x} />
+          {/* <div className='auction-card d-flex f-wrap f-column a-center ' style={{ cursor: 'pointer' }} onClick={() => {
             show(x._id)
 
           }}>
-            {/* <img className='grow1 m10' src={`${image}`} alt="" /> */}
+           
             <div className='image-container' style={{ backgroundImage: `url("${x.image}")` }}></div>
             <h5> {x.title} </h5>
             <h5>Provider: {x.name}</h5>
             <h5>Time left: {timeDistance(x.time, Date.parse(new Date))}</h5>
-            <h5>Current price € {x.bids[x.bids.length - 1].price}</h5>
+            <h5>Last price € {x.bids[x.bids.length - 1].price}</h5>
             <h5>Bids placed {x.bids.length}</h5>
 
-          </div>
+          </div> */}
         </div>)}
       </div>
 
