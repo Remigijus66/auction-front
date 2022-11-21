@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import MainContext from "../context/MainContext";
 import { get } from "../plugins/http";
-import io from "socket.io-client"
 import AuctionCard from './AuctionCard';
+import io from "socket.io-client"
 
 const socket = io.connect('http://localhost:4001');
 
@@ -14,10 +14,14 @@ const List = () => {
   useEffect(() => {
     downloadActualAuctions()
 
+    socket.on('upload', () => {
+      console.log('upload occured')
+      downloadActualAuctions()
+    })
 
-    socket.on('updateList', (data) => {
-      console.log(data)
-      setAuctions(data)
+    socket.on('updateList', () => {
+      console.log('bid occured')
+      downloadActualAuctions()
     })
 
 
@@ -29,7 +33,6 @@ const List = () => {
     console.log(res)
     setAuctions(res.data)
     console.log(auctions)
-
   }
 
 

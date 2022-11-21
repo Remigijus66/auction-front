@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
-import { timeDistance } from '../plugins/http';
+import { post, timeDistance } from '../plugins/http';
 import { useNavigate } from 'react-router-dom';
 import io from "socket.io-client"
 
@@ -19,16 +19,25 @@ const Auction = () => {
 
     socket.on("singleAuction", (data) => {
       // console.log(data)
-      setSingleAuction(data)
+      donloadSingle(data)
       // console.log(singleAuction)
     })
     socket.on('bid', (data) => {
-      setSingleAuction(data)
+      donloadSingle(data)
     })
 
   }, [])
 
-
+  const donloadSingle = async (id) => {
+    const data = {
+      id: id
+    }
+    const res = await post('downloadSingle', data)
+    setSingleAuction(res.data)
+    console.log(res)
+    // setAuctions(res.data)
+    // console.log(auctions)
+  }
 
   const submit = () => {
     console.log(bidRef.current.value)

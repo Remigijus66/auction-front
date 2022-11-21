@@ -3,6 +3,9 @@ import React, { useContext, useEffect, useState, useRef } from 'react';
 import MainContext from "../context/MainContext";
 import { useNavigate } from "react-router-dom";
 import { post, timeDistance } from "../plugins/http";
+import io from "socket.io-client"
+
+const socket = io.connect('http://localhost:4001');
 
 
 const Upload = () => {
@@ -49,6 +52,8 @@ const Upload = () => {
       price: price
     }
     const res = await post('upload', data)
+    socket.emit("upload", 'upload')
+
     console.log(res)
 
     auctionImageRef.current.value = ''
