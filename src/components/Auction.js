@@ -3,12 +3,13 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
 import { post, timeDistance } from '../plugins/http';
-
+import { useNavigate } from "react-router-dom";
 import io from "socket.io-client"
 
 const socket = io.connect('http://localhost:4001');
 
 const Auction = () => {
+  const nav = useNavigate()
   const { setShowAuction, id, singleAuction, setSingleAuction, sessionUser } = useContext(MainContext)
   const bidRef = useRef()
 
@@ -32,6 +33,7 @@ const Auction = () => {
       id: id
     }
     const res = await post('downloadSingle', data)
+    if (res.error === true) return nav('/')
     setSingleAuction(res.data)
     console.log(res)
 

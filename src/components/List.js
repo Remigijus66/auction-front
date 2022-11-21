@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import MainContext from "../context/MainContext";
-import { get } from "../plugins/http";
+import { post } from "../plugins/http";
 import AuctionCard from './AuctionCard';
 import io from "socket.io-client"
-
+import { useNavigate } from "react-router-dom";
 const socket = io.connect('http://localhost:4001');
 
 
 const List = () => {
-
+  const nav = useNavigate()
   const { auctions, setAuctions, } = useContext(MainContext)
 
   useEffect(() => {
@@ -29,8 +29,10 @@ const List = () => {
 
 
   const downloadActualAuctions = async () => {
-    const res = await get('downloadActual')
+    const data = { id: 'dummy' }
+    const res = await post('downloadAll', data)
     console.log(res)
+    if (res.error === true) return nav('/')
     setAuctions(res.data)
     console.log(auctions)
   }

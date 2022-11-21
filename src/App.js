@@ -35,7 +35,8 @@ function App() {
         auctions, setAuctions,
         showAuction, setShowAuction,
         id, setId,
-        singleAuction, setSingleAuction
+        singleAuction, setSingleAuction,
+        socket
     }
 
 

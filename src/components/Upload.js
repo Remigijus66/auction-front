@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from 'react';
-
+import { useNavigate } from "react-router-dom";
 import MainContext from "../context/MainContext";
 import { post, timeDistance } from "../plugins/http";
 import io from "socket.io-client"
@@ -8,6 +8,7 @@ const socket = io.connect('http://localhost:4001');
 
 
 const Upload = () => {
+  const nav = useNavigate()
   const [verified, setVerified] = useState(false)
 
   const { image, setImage,
@@ -48,6 +49,7 @@ const Upload = () => {
       price: price
     }
     const res = await post('upload', data)
+    if (res.error === true) return nav('/')
     socket.emit("upload", 'upload')
 
     console.log(res)

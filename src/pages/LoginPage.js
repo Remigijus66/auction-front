@@ -1,16 +1,14 @@
 import React from 'react';
 import Login from '../components/Login';
 import Nav from '../components/Navigate';
-// import ChooseColor from "../components/ChooseColor";
-// import Create from '../components/Create';
-// import Logout from '../components/Logout';
-// import Show from '../components/Show';
-// import ToLogin from '../components/ToLogin';
+import SendSocket from '../components/SendSocket';
+
 
 const LoginPage = () => {
   return (
     <div className="p50">
       {/* <Nav /> */}
+      {/* <SendSocket /> */}
       <Login />
     </div>
   );

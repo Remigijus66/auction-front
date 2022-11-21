@@ -7,8 +7,12 @@ const Nav = () => {
   const { sessionUser, setSessionUser } = useContext(MainContext)
   const nav = useNavigate()
 
+
   const logout = async () => {
+    console.log('logout')
     const data = { name: sessionUser }
+    console.log(data)
+
     const res = await post('logout', data)
     if (res.message === 'session terminated') setSessionUser('')
     nav('/')
