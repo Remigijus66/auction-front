@@ -4,12 +4,14 @@ import { post } from "../plugins/http";
 import AuctionCard from './AuctionCard';
 import io from "socket.io-client"
 import { useNavigate } from "react-router-dom";
+import Checkboxes from './Checkboxes';
 const socket = io.connect('http://localhost:4001');
 
 
 const List = () => {
   const nav = useNavigate()
-  const { auctions, setAuctions, } = useContext(MainContext)
+  const { auctions, setAuctions, showOpen,
+    showClosed } = useContext(MainContext)
 
   useEffect(() => {
     downloadActualAuctions()
@@ -41,8 +43,11 @@ const List = () => {
   return (
     <div  >
       <h2>Auctions list</h2>
+      <div>
+        <Checkboxes />
+      </div>
       <div className='d-flex f-wrap '>
-        {auctions.map((x, i) => <div key={i} > <AuctionCard auction={x} />
+        {auctions.filter((e) => (((e.time > Date.parse(new Date)) === showOpen) || e.time < Date.parse(new Date)) && (((e.time < Date.parse(new Date)) === showClosed) || e.time > Date.parse(new Date))).map((x, i) => <div key={i} > <AuctionCard auction={x} />
         </div>)}
       </div>
     </div>

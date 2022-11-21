@@ -23,6 +23,8 @@ function App() {
     const [id, setId] = useState('')
     const [singleAuction, setSingleAuction] = useState({})
     const [tick, setTick] = useState(false)
+    const [showOpen, setShowOpen] = useState(true);
+    const [showClosed, setShowClosed] = useState(true);
 
 
 
@@ -36,14 +38,15 @@ function App() {
         showAuction, setShowAuction,
         id, setId,
         singleAuction, setSingleAuction,
-        socket
+        socket,
+        showOpen, setShowOpen,
+        showClosed, setShowClosed
+
     }
-
-
 
     useEffect(() => {
         setTimeout(() => {
-            socket.emit('tick', 'tick')
+            // socket.emit('tick', 'tick')
             tick ? setTick(false) : setTick(true)
             clearTimeout();
         }, 1000)
