@@ -1,8 +1,8 @@
 
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
-import { checksesssion, post, timeDistance } from '../plugins/http';
+import { timeDistance } from '../plugins/http';
 // import MainContext from "../context/MainContext";
 // import { useNavigate } from "react-router-dom";
 // import { get, post, timeDistance } from "../plugins/http";
@@ -56,7 +56,7 @@ const Auction = () => {
     <div className="auction-container d-flex j-center a-center" >
       <div className='auction '>
         <div className="closeBtn d-flex space-btw">
-          <div></div>
+          <div className='d-flex a-center'><h5>Place your bids</h5></div>
           <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px' }} onClick={close}>X</div>
         </div>
         <div className='d-flex s-evenly'>

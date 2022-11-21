@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext } from 'react';
 import MainContext from "../context/MainContext";
 
 import { checksesssion, timeDistance } from "../plugins/http";
@@ -26,7 +26,7 @@ const AuctionCard = ({ auction }) => {
       show(auction._id)
 
     }}>
-      {/* <img className='grow1 m10' src={`${image}`} alt="" /> */}
+
       <div className='image-container' style={{ backgroundImage: `url("${auction.image}")` }}></div>
       <h5> {auction.title} </h5>
       <h5>Provider: {auction.name}</h5>

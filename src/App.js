@@ -1,22 +1,18 @@
 import './App.css';
 import io from "socket.io-client"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import MainContext from "./context/MainContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import ChatPage from './pages/ChatPage';
-// import RoomsPage from './pages/RoomsPage';
 import LoginPage from './pages/LoginPage';
 import UploadPage from './pages/UploadPage';
 import ListPage from './pages/ListPage';
-import AuctionPage from './pages/AuctionPage';
 import WelcomePage from './pages/WecomePage';
-import Nav from './components/Navigate';
+
 
 const socket = io.connect('http://localhost:4001');
 
 
 function App() {
-    const [username, setUsername] = useState('')
     const [sessionUser, setSessionUser] = useState('')
     const [image, setImage] = useState('')
     const [title, setTitle] = useState('')
@@ -68,7 +64,6 @@ function App() {
                         <Route path="/welcome" element={<WelcomePage />} />
                         <Route path="/upload" element={<UploadPage />} />
                         <Route path="/list" element={<ListPage />} />
-                        {/* <Route path="/auction" element={<AuctionPage />} /> */}
 
                     </Routes>
 

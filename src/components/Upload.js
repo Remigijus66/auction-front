@@ -77,10 +77,9 @@ const Upload = () => {
           <h5>Initial price € </h5>
           <input className='m10' type={'number'} ref={auctionPriceRef} placeholder={'Enter price'} />
           <button onClick={validate}>Validate</button>
-          {/* {!verified && <p style={{ color: 'red' }}>Incorrect auction details</p>} */}
+
         </div>
         <div className='auction-card d-flex f-wrap f-column a-center '>
-          {/* <img className='grow1 m10' src={`${image}`} alt="" /> */}
           <div className='image-container' style={{ backgroundImage: `url("${image}")` }}></div>
           <h5> {title} </h5>
 
