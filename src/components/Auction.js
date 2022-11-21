@@ -3,9 +3,6 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
 import { timeDistance } from '../plugins/http';
-// import MainContext from "../context/MainContext";
-// import { useNavigate } from "react-router-dom";
-// import { get, post, timeDistance } from "../plugins/http";
 import { useNavigate } from 'react-router-dom';
 import io from "socket.io-client"
 
@@ -17,7 +14,6 @@ const Auction = () => {
   const bidRef = useRef()
 
   useEffect(() => {
-    // downloadSingle()
 
     socket.emit("singleAuction", id)
 
