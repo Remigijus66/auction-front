@@ -3,14 +3,13 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
 import { post, timeDistance } from '../plugins/http';
-import { useNavigate } from 'react-router-dom';
+
 import io from "socket.io-client"
 
 const socket = io.connect('http://localhost:4001');
 
 const Auction = () => {
   const { setShowAuction, id, singleAuction, setSingleAuction, sessionUser } = useContext(MainContext)
-  const nav = useNavigate()
   const bidRef = useRef()
 
   useEffect(() => {
@@ -35,16 +34,19 @@ const Auction = () => {
     const res = await post('downloadSingle', data)
     setSingleAuction(res.data)
     console.log(res)
-    // setAuctions(res.data)
-    // console.log(auctions)
+
   }
 
-  const submit = () => {
-    console.log(bidRef.current.value)
-    console.log(sessionUser)
-    const newPrice = bidRef.current.value
-    const bidderName = sessionUser
-    socket.emit("bid", id, newPrice, bidderName)
+  const submit = async () => {
+
+    const data = {
+      id: id,
+      newPrice: bidRef.current.value,
+      bidderName: sessionUser
+    }
+    const res = await post('placeBid', data)
+    socket.emit('bid', id)
+    console.log(res)
     bidRef.current.value = ''
   }
 

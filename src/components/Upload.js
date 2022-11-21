@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 
 import MainContext from "../context/MainContext";
-import { useNavigate } from "react-router-dom";
 import { post, timeDistance } from "../plugins/http";
 import io from "socket.io-client"
 
@@ -9,10 +8,7 @@ const socket = io.connect('http://localhost:4001');
 
 
 const Upload = () => {
-  const nav = useNavigate()
   const [verified, setVerified] = useState(false)
-  const [tick, setTick] = useState(false)
-
 
   const { image, setImage,
     title, setTitle,
